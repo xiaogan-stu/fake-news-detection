@@ -1,0 +1,139 @@
+# 实验结果表格
+
+数据来源: /mnt/workspace/output/all_results.csv
+已收集实验数: 13
+
+### 实验完成状态
+
+| 实验名称 | 状态 |
+|----------|------|
+| bert_mlp_poli | DONE |
+| bert_gcn_poli | DONE |
+| bert_gat_poli | DONE |
+| bert_sage_poli | DONE |
+| bert_bigcn_poli | DONE |
+| llama_mlp_poli | MISSING |
+| llama_gcn_poli | DONE |
+| llama_gatv2_poli | DONE |
+| llama_hgnn_poli | MISSING |
+| ablation_bert_hgnn | DONE |
+| ablation_1layer | DONE |
+| ablation_3layer | DONE |
+| bert_gcn_gossip | DONE |
+| bert_gat_gossip | DONE |
+| bert_hgnn_gossip | DONE |
+
+已完成: 13/15, 缺失: 2
+
+---
+
+## 表A：主对比表 (Politifact)
+
+### 表A: Politifact 基线对比
+
+| Method | Accuracy | F1-macro | AUC |
+|--------|----------|----------|-----|
+| GCN (LLM) | 0.8643 | 0.8638 | 0.9688 |
+| GATv2 (LLM) | 0.8462 | 0.8452 | 0.9491 |
+| BiGCN (BERT) | 0.8552 | 0.8552 | 0.9213 |
+| MLP (BERT) | 0.8054 | 0.8031 | 0.8762 |
+| GraphSAGE (BERT) | 0.7964 | 0.7926 | 0.8631 |
+| GCN (BERT) | 0.7285 | 0.7284 | 0.8030 |
+| GAT (BERT) | 0.7104 | 0.7021 | 0.8002 |
+| MLP (LLM) | - | - | - |
+| **HGNN (LLM, Ours)** | - | - | - |
+
+\begin{table}[htbp]
+  \centering
+  \caption{Baseline Comparison on Politifact}
+  \label{tab:main_comparison}
+  \begin{tabular}{lccc}
+    \toprule
+    Method & Accuracy & F1-macro & AUC \\
+    \midrule
+    GCN (LLM) & 0.8643 & 0.8638 & 0.9688 \\
+    GATv2 (LLM) & 0.8462 & 0.8452 & 0.9491 \\
+    BiGCN (BERT) & 0.8552 & 0.8552 & 0.9213 \\
+    MLP (BERT) & 0.8054 & 0.8031 & 0.8762 \\
+    GraphSAGE (BERT) & 0.7964 & 0.7926 & 0.8631 \\
+    GCN (BERT) & 0.7285 & 0.7284 & 0.8030 \\
+    GAT (BERT) & 0.7104 & 0.7021 & 0.8002 \\
+    MLP (LLM) & - & - & - \\
+    \textbf{HGNN (LLM, Ours)} & \textbf{-} & \textbf{-} & \textbf{-} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+### 本文方法相对最强基线的提升
+
+- 最强基线: GCN (LLM)
+- Accuracy 提升: +-215.70% (0.8643 → -1.0000)
+- F1-macro 提升: +-215.77% (0.8638 → -1.0000)
+- AUC 提升:      +-203.22% (0.9688 → -1.0000)
+
+---
+
+## 表B：消融实验表
+
+### 表B: 消融实验
+
+| Method | Accuracy | F1-macro | AUC |
+|--------|----------|----------|-----|
+| w/o Multi-layer (1 layer) | 0.8371 | 0.8346 | 0.9639 |
+| 3 layers | 0.8643 | 0.8641 | 0.9568 |
+| w/o Hyperbolic (LLM + GATv2) | 0.8462 | 0.8452 | 0.9491 |
+| w/o LLM (BERT + HGNN) | 0.8281 | 0.8275 | 0.9188 |
+| Full Model | - | - | - |
+| w/o Graph (LLM + MLP) | - | - | - |
+
+\begin{table}[htbp]
+  \centering
+  \caption{Ablation Study}
+  \label{tab:ablation}
+  \begin{tabular}{lccc}
+    \toprule
+    Method & Accuracy & F1-macro & AUC \\
+    \midrule
+    w/o Multi-layer (1 layer) & 0.8371 & 0.8346 & 0.9639 \\
+    3 layers & 0.8643 & 0.8641 & 0.9568 \\
+    w/o Hyperbolic (LLM + GATv2) & 0.8462 & 0.8452 & 0.9491 \\
+    w/o LLM (BERT + HGNN) & 0.8281 & 0.8275 & 0.9188 \\
+    Full Model & - & - & - \\
+    w/o Graph (LLM + MLP) & - & - & - \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+---
+
+## 表C：跨数据集表 (Gossipcop)
+
+### 表C: Gossipcop 跨数据集
+
+| Method | Accuracy | F1-macro | AUC |
+|--------|----------|----------|-----|
+| **HGNN (BERT, Ours)** | 0.7480 | 0.7480 | 0.8257 |
+| GAT (BERT) | 0.7457 | 0.7425 | 0.8219 |
+| GCN (BERT) | 0.7488 | 0.7453 | 0.8212 |
+
+\begin{table}[htbp]
+  \centering
+  \caption{Cross-dataset Evaluation on Gossipcop}
+  \label{tab:cross_dataset}
+  \begin{tabular}{lccc}
+    \toprule
+    Method & Accuracy & F1-macro & AUC \\
+    \midrule
+    \textbf{HGNN (BERT, Ours)} & \textbf{0.7480} & \textbf{0.7480} & \textbf{0.8257} \\
+    GAT (BERT) & 0.7457 & 0.7425 & 0.8219 \\
+    GCN (BERT) & 0.7488 & 0.7453 & 0.8212 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+### 本文方法相对最强基线的提升
+
+- 最强基线: GAT (BERT)
+- Accuracy 提升: +-0.11% (0.7488 → 0.7480)
+- F1-macro 提升: +0.36% (0.7453 → 0.7480)
+- AUC 提升:      +0.46% (0.8219 → 0.8257)

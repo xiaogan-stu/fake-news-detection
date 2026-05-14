@@ -1,0 +1,52 @@
+# fake-news-detection: Llama-3-8B + HGNN | Python 3.11, CUDA 12.8 (cu128 wheels)
+# Use a Python 3.11 venv. Install torch from the PyTorch cu128 index (not CPU-only PyPI builds).
+# Suggested:
+#   pip install -U pip setuptools wheel
+#   pip install -r requirements.txt
+# If torch resolves wrong, pre-install:
+#   pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/cu128
+#   pip install -r requirements.txt
+
+--extra-index-url https://download.pytorch.org/whl/cu128
+--find-links https://data.pyg.org/whl/torch-2.10.0+cu128.html
+
+# Core (CUDA 12.8 official stack)
+torch==2.10.0
+torchvision==0.25.0
+torchaudio==2.10.0
+
+# PyG extensions (prebuilt for torch 2.10.0+cu128, cp311; from --find-links)
+pyg-lib==0.6.0+pt210cu128
+torch-scatter==2.1.2+pt210cu128
+torch-sparse==0.6.18+pt210cu128
+torch-cluster==1.6.3+pt210cu128
+torch-spline-conv==1.2.2+pt210cu128
+torch-geometric==2.7.0
+
+# LLM / training stack
+transformers==4.48.3
+tokenizers==0.21.1
+safetensors==0.5.3
+huggingface-hub==0.28.1
+datasets==3.2.0
+accelerate==1.4.0
+bitsandbytes==0.45.5
+deepspeed==0.19.0
+sentencepiece==0.2.0
+protobuf==5.29.3
+
+# Hyperbolic optimization (RiemannianAdam, Lorentz manifold)
+geoopt==0.5.0
+
+# Data / metrics / config
+numpy==2.2.2
+scipy==1.15.1
+scikit-learn==1.6.1
+pandas==2.2.3
+tqdm==4.67.1
+PyYAML==6.0.2
+
+# Runtime helpers for distributed / DeepSpeed
+packaging==24.2
+psutil==6.1.1
+ninja==1.11.1.3

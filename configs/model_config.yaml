@@ -1,0 +1,6 @@
+# LLM + HGNN model configuration (paths filled at runtime)
+llm_model_path: ""
+gnn_dim: 128
+num_layers: 2
+hyperbolic_curvature: -1.0
+dropout: 0.1
